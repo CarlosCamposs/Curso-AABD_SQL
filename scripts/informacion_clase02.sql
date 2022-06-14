@@ -64,3 +64,110 @@ DELIMITER ',' ;
 SELECT * FROM tabla_clientes;
 /* Leemos el archivo .txt*/
 
+/* Notemos que el nombre de las columnas de la tabla que cree (tabla_clientes) no coincide con el
+nombre de las columnas del archivo .csv o .txt, eso NO causa conflicto, lo único que estoy diciendo
+es que la información me la copie a la tabla que yo cree, lo que SÍ importa es la condición que le
+damos a las columnas */
+
+
+/* Si no nos queremos meter en problemas con la declaración del tipo de variable que se permite en cada
+columna podemos declararla como varchar y luego hacer el cambio que necesitemos*/
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+
+SELECT Nombre FROM tabla_clientes;
+
+SELECT Nombre, Apellido FROM tabla_clientes;
+
+SELECT * FROM tabla_clientes;
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+
+SELECT DISTINCT Nombre FROM tabla_clientes;
+
+SELECT DISTINCT Nombre,Edad FROM tabla_clientes;
+
+COPY tabla_clientes(Id_cliente, Nombre, Apellido, Edad, correo) 
+FROM 'C:\Users\Public\Documents\aabd_sql2021\copy.csv'
+DELIMITER ',' CSV HEADER;
+SELECT * FROM tabla_clientes;
+/*Aqui nada mas hemos agregado nuevamente los valores que aparecen en el archivo .csv, es decir,
+los hemos repetido y ahora tenemos 10 registros donde el 9 y 10 son copia del 5 y 6 respectivamente*/
+
+SELECT DISTINCT * FROM tabla_clientes;
+/*Esto nos va a mostrar todos los registros(renglones) que no son repetidos considerando todas las columnas*/
+
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+SELECT * FROM tabla_clientes;  		/*Tiene 10 registros*/
+
+SELECT COUNT (*) FROM tabla_clientes;  /*Cuenta el número de renglones que tiene la tabla*/
+
+SELECT Nombre FROM tabla_clientes WHERE edad=25;
+/*Aparece 3 veces Gabriela*/
+SELECT DISTINCT Nombre FROM tabla_clientes WHERE edad=25;
+/*Solo una vez aparece*/
+
+SELECT Nombre, edad FROM tabla_clientes WHERE edad>25;
+
+SELECT * FROM tabla_clientes WHERE Nombre='Gabriela'; 
+/*Los datos de tipo texto van con comilla simple*/
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+
+SELECT nombre,apellido, edad FROM tabla_clientes WHERE edad>20 AND edad<30;
+
+SELECT nombre, apellido, edad FROM tabla_clientes WHERE (edad <=25 OR edad >30) AND nombre='Gabriela'; 
+
+SELECT nombre, apellido, edad FROM tabla_clientes WHERE (edad<=25)OR(edad<30 AND nombre='Gabriela');
+
+SELECT nombre,apellido, edad FROM tabla_clientes WHERE NOT(edad=25);
+/*Con esto tomamos aquellos que NO tienen edad=25, también se puede hacer con !=*/
+SELECT nombre,apellido, edad FROM tabla_clientes WHERE edad!=25;
+
+
+
+SELECT nombre,apellido, edad FROM tabla_clientes WHERE NOT edad=25 AND NOT nombre='Jacobo';
+SELECT nombre,apellido, edad FROM tabla_clientes WHERE NOT (edad=25 OR nombre='Jacobo'); /*Da lo mismo*/
+
+/* Un error hubiera sido poner esto */
+SELECT nombre,apellido, edad FROM tabla_clientes WHERE NOT(edad=25 AND nombre='Jacobo');
+/*Puesto que por Leyes de DeMorgan (AnB)'=A'UB' */
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+/*Actualizaciones*/
+
+SELECT * FROM tabla_clientes;
+
+UPDATE tabla_clientes SET Apellido='Pe', Edad=17 WHERE Id_cliente=2;
+SELECT * FROM tabla_clientes;
+/*SQL actualizó el dato pero no lo deja en la posición 2, lo pasó a la última*/
+
+UPDATE tabla_clientes SET correo='gee@xyz.com' WHERE nombre='Gabriela' OR nombre='gabriela';
+SELECT * FROM tabla_clientes;
+
+UPDATE tabla_clientes SET correo='gee@xyz.com';
+SELECT * FROM tabla_clientes;
+
+
+
+
+
+DELETE FROM tabla_clientes WHERE id_cliente=6;
+SELECT * FROM tabla_clientes;
+
+DELETE FROM tabla_clientes WHERE edad>25;
+SELECT * FROM tabla_clientes;
+
+DELETE FROM tabla_clientes;
+/* Borra los datos, la tabla sigue existiendo en "Tables" dentro de "Schemas" */
