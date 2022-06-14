@@ -170,4 +170,73 @@ DELETE FROM tabla_clientes WHERE edad>25;
 SELECT * FROM tabla_clientes;
 
 DELETE FROM tabla_clientes;
+SELECT * FROM tabla_clientes;
 /* Borra los datos, la tabla sigue existiendo en "Tables" dentro de "Schemas" */
+
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+
+/*Sesion 04*/
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+
+INSERT INTO tabla_clientes(Id_cliente,Nombre,Edad,correo)
+VALUES(2,'Diana',22,'d@xyz.com');
+
+INSERT INTO tabla_clientes
+VALUES(3, 'Euclides', 'Ef', 27, 'ef@xyz.com'), (4, 'Gabriela', 'Eh', 35, 'gh@xyz.com');
+
+SELECT * FROM tabla_clientes;
+
+/*Seleccionar vacios*/
+
+SELECT * FROM tabla_clientes WHERE apellido IS NULL;
+
+DELETE FROM tabla_clientes;
+SELECT * FROM tabla_clientes;
+
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+/* ALTER TABLE*/
+
+ALTER TABLE tabla_clientes ADD COLUMN prueba varchar;
+SELECT * FROM tabla_clientes;
+
+ALTER TABLE tabla_clientes DROP COLUMN prueba;
+SELECT * FROM tabla_clientes;
+
+ALTER TABLE tabla_clientes ALTER COLUMN Edad TYPE varchar;
+SELECT * FROM tabla_clientes;
+
+ALTER TABLE tabla_clientes RENAME COLUMN correo TO correo_cliente;
+SELECT * FROM tabla_clientes;
+
+
+/*############################################################*/
+/*############################################################*/
+/*############################################################*/
+
+
+ALTER TABLE tabla_clientes ALTER COLUMN id_cliente SET NOT NULL;
+
+INSERT INTO tabla_clientes(Nombre,Apellido,Edad, correo_cliente)
+VALUES('aa','bb',25,'ab@xyz.com');
+/*Falla porque no hemos metido id_cliente en el anterior INSERT INTO y anteriormente pusimos que la columna id_clientes
+no debe aceptar valores nulos*/
+
+
+ALTER TABLE tabla_clientes ADD CONSTRAINT id_clientes CHECK (id_cliente>0);
+
+INSERT INTO tabla_clientes VALUES (-1,'cc','dd',67,'ab@xyz.com') ;
+/*Aqui falla porque el id_cliente del nuevo registro que estamos agregando consta de un número negativo, y 
+anteriormente definimos la restricción que id_cliente>0*/
+ 	
+ALTER TABLE tabla_clientes ADD PRIMARY KEY (id_cliente) ;
+
+
