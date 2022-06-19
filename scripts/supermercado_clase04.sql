@@ -73,23 +73,89 @@ SELECT * FROM customer WHERE customer_name LIKE 'David';
 SELECT * FROM customer WHERE customer_name LIKE 'David %';
 /*Aqui ya permitimos que se llame David y tenga cualquier apellido*/
 
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/*Sesión 05*/
+
+/*Estas líneas de código se copiaron del archivo "script_sales_product_.txt" para empezar la clase*/
+
+CREATE TABLE sales(Order_Line int Primary Key,
+				   Order_ID varchar,
+				   Order_Date date,
+				   Ship_Date date,
+				   Ship_Mode varchar,
+				   Customer_ID varchar,
+				   Product_ID varchar,
+				   Sales numeric,
+				   Quantity int,
+				   Discount numeric,
+				   Profit numeric);
+
+CREATE TABLE product(product_id varchar PRIMARY KEY,
+					 category varchar,
+					 sub_category varchar,
+					 product_name varchar);
+
+COPY sales FROM 'C:\Users\Public\Documents\aabd_sql2021\Sales.csv' DELIMITER ',' CSV HEADER;
+COPY product FROM 'C:\Users\Public\Documents\aabd_sql2021\Product.csv' DELIMITER ',' CSV HEADER;
+
+SELECT * FROM sales;
+SELECT * FROM product;
+/*A partir de aqui ya empezamos a programar*/
+
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* ORDER BY */
+
+SELECT * FROM customer;
+
+SELECT * FROM customer WHERE state='California' ORDER BY customer_name ASC;
+
+SELECT * FROM customer WHERE state='California' ORDER BY customer_name DESC;
+
+SELECT * FROM customer WHERE age >25
+ORDER BY city ASC, customer_name DESC;
+/*Aqui lo que estamos diciendo es que cuando encuentre empates entre CIUDAD los desempatará con el nombre
+de forma descendiente*/
+
+SELECT * FROM customer ORDER BY age;
 
 
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* LIMIT */
+
+SELECT * FROM customer WHERE age>=25 ORDER BY age DESC LIMIT 8;
+
+SELECT * FROM customer WHERE age>=25 ORDER BY age ASC LIMIT 10;
+
+/*Estos resultados que vamos obteniendo NO son una tabla como tal, solo tenemos 3 tablas
+									customers, product, sales
+Estos outputs que resultan del SELECT se llaman "query" */
+
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* AS */
+
+SELECT customer_id AS "Num de cliente", customer_name AS nombre, age AS "Edad_cliente" 
+/*Todo esto es una query, le podemos poner todo lo que ya sabemos hacer*/
+FROM customer
+ORDER BY nombre;
 
 
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* COUNT */
+
+SELECT COUNT (*) FROM sales;
+
+SELECT COUNT(order_line) AS ”Número de productos que se ordenaron”, 
+COUNT(DISTINCT order_id) AS ”Número de órdenes distintas”
+FROM sales WHERE customer_id = 'CG-12520';
 
 
-/* Esto lo trabajaremos más adelante
-/*Creamos la tabla para importar los datos de sales.csv*/
-CREATE TABLE sales(Order_Line,
-				   Order_ID,
-				   Order_Date,
-				   Ship_Date,
-				   Ship_Mode,
-				   Customer_ID,
-				   Product_ID,
-				   Sales,
-				   Quantity,
-				   Discount,
-				   Profit);
-*/
