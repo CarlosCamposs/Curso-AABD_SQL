@@ -154,8 +154,57 @@ ORDER BY nombre;
 
 SELECT COUNT (*) FROM sales;
 
-SELECT COUNT(order_line) AS ”Número de productos que se ordenaron”, 
+SELECT COUNT(order_line) AS ”Número de productos que se ordenaron”, /*Cuenta el NÚMERO DE RENGLONES, no los valores en los renglones*/
 COUNT(DISTINCT order_id) AS ”Número de órdenes distintas”
 FROM sales WHERE customer_id = 'CG-12520';
 
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* SUM */
+SELECT * FROM sales;
+
+SELECT SUM(profit) AS "Total de ganancia" FROM sales;
+
+
+SELECT * FROM product;
+/*Buscamos cual es el product_id del artículo para buscarlo después en la tabla de sales*/
+SELECT product_id AS "Identificador del producto" FROM product WHERE product_name='Bretford CR4500 Series Slim Rectangular Table';
+SELECT SUM(quantity) AS "Cantidad Total" FROM sales WHERE product_id='FUR-TA-10000577';
+/*product_id=FUR-TA-10000577 se sacó de la tabla product*/
+
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* (AVG) */
+ 
+SELECT * FROM customer;  
+SELECT AVG(age) AS "Promedio de edad" FROM customer;
+
+SELECT * FROM sales;
+SELECT AVG(sales*0.10) AS "Comisión promedio por venta" FROM sales;
+/*Para cada uno de los registros de la columan "sales" se calcula el 10%, por lo que podriamos pensar en tener una columna
+cuyas registros sean el 10% de cada una de las ventas, y nosotros estamos interesados en conocer el PROMEDIO de eso*/
+
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* MIN y MAX */
+
+SELECT * FROM sales LIMIT 10;
+
+SELECT MIN(sales) AS "Mínimo de ventas en junio" FROM sales WHERE order_date BETWEEN '2015-06-01' AND '2015-06-30';
+
+SELECT MAX(sales) AS "Máximo de ventas en junio" FROM sales WHERE order_date BETWEEN '2015-06-01' AND '2015-06-30';
+
+SELECT MAX(sales) AS "Mayor ingreso" FROM sales WHERE order_date BETWEEN '2015-01-01' AND '2015-12-31';
+/*En esta primera query estamos hallando cual fue el mayor ingreso en 2015*/
+SELECT order_date AS "Fecha mayor ingreso" FROM sales WHERE sales=6354.95;
+/*En esta segunda consulta ya vemos cuál es la fecha en la que ocurrio esta máxima sale*/
+/*IMPORTANTE:
+Aqui estamos especificando el valor en la que se obtuvo el MAX(sales) pero si justamente hubiera coincidio
+que en otra fecha se alcanzó el MISMO MÁXIMO, hubieran aparecido las dos fechas, por lo que en la sentencia WHERE
+es necesario poner dos condiciones
+1) Que la fecha esté entre 01 enero 2015 y 31 diciembre 2015 
+2) sales=6345.95*/
 
