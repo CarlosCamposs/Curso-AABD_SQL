@@ -208,3 +208,110 @@ es necesario poner dos condiciones
 1) Que la fecha esté entre 01 enero 2015 y 31 diciembre 2015 
 2) sales=6345.95*/
 
+
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* SESIÓN 06 */
+
+
+
+/*GROUP BY*/
+SELECT * FROM customer LIMIT 10;
+
+SELECT COUNT(*) FROM customer WHERE region='South';
+SELECT COUNT(*) FROM customer WHERE region='West';
+/* El GROUPBY nos permite no estar haciendo para cada uno de los region*/
+
+SELECT region AS "Región", 
+COUNT(customer_id) AS "Total de clientes" 
+/*Con esto digo que me muestre solo dos columnas, una llamada Región y otra Total de clientes
+y luego que los GROUPBY por region*/
+FROM customer
+GROUP BY region;
+
+
+SELECT * FROM sales LIMIT 10;
+
+SELECT product_id AS "Productos vendidos",
+SUM(quantity) AS Cantidad
+FROM sales
+GROUP BY product_id ORDER BY Cantidad DESC;
+
+
+
+SELECT * FROM customer LIMIT 10;
+
+SELECT region AS "Región", state AS "Estado", /*Notar que aqui estamos diciendo que se quede con 2 Y LUEGO viene una coma*/
+COUNT(customer_id) AS "Número de clientes", AVG(age) AS "Promedio de edad"
+FROM customer
+GROUP BY region,state ;
+
+
+
+SELECT * FROM sales LIMIT 10;
+
+SELECT customer_id AS "Nombre del cliente", 
+MIN(sales) AS "Mínimo", MAX(sales) AS "Máximo", AVG(sales) AS "Promedio", SUM(sales) AS Total_de_ingresos_por_cliente
+FROM sales
+GROUP BY customer_id
+ORDER BY Total_de_ingresos_por_cliente DESC
+LIMIT 5;
+
+
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/* HAVING */
+
+SELECT * FROM customer LIMIT 5;
+
+SELECT region AS "Regiones", 
+COUNT(customer_id) AS "Número de clientes" /*Función de agregación*/
+FROM customer
+GROUP BY region  /*Hasta aqui es lo mismo que lo visto en la sentencia GROUP BY*/
+HAVING COUNT(customer_id)>200;
+
+
+
+SELECT region AS "Región",
+COUNT(customer_id) AS "Total de clientes" /*Función de agregación, a esta se le aplica HAVING*/
+FROM customer
+WHERE customer_name LIKE 'A%' 
+GROUP BY region
+/*Hasta aqui hacemos un GROUPBY mostrando en cada una de las regiones el total de registros que tienen por inicial A*/
+HAVING COUNT(customer_id) BETWEEN 15 AND 20;
+/* 15 <= COUNT(customer_id) <= 20*/
+
+
+/* ####################################################*/
+/* ####################################################*/
+/* ####################################################*/
+/*C06 CONDICIONALES*/
+
+/*CASE*/
+
+SELECT *, CASE
+WHEN age < 30 THEN 'Joven'
+WHEN age > 60 THEN 'Mayor'
+ELSE 'Medio'
+END AS "Categoría de edad" 
+FROM customer;
+/*Como seleccionamos toda la tabla, estamos diciendo que nos muestre toda la tabla Y además la columna del alias que creamos
+(eso hacia el alias, al final solo nos mostraba las columnas que le habiamos puesto un alias, pero como pusimos SELECT*
+pues ahora también nos muestra todas las demás columnas) 
+IMPORTANTE
+todo eso es una query, no es ninguna modificación a la tabla original*/
+
+-- Así también se puede poner comentarios
+
+--Para crear tablas se usa la siguiente sintaxis
+
+-- CREATE TABLE nombre_de_la_tabla
+-- AS
+-- (código de la query que queremos guardar como tabla) ;
+
+-- Y ahora que ya tenemos la tabla con la query que queriamos, podemos aplicar cualquier sentencia a las
+-- columnas de esa nueva tabla
+
+
