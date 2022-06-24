@@ -217,3 +217,49 @@ FROM customer ORDER BY age;
 SELECT CURRENT_DATE, CURRENT_TIME, CURRENT_TIME(3), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP(3);
 
 
+/* ######################################## */
+/* ######################################## */
+/* ######################################## */
+-- Diferencias entre dos fechas
+
+
+SELECT AGE('2014-04-25','2014-01-01'), AGE(TIMESTAMP '2014-04-25 17:00:10');
+-- La primera es para sacar la diferencia entre las dos fechas
+-- La instrucción TIMESTAMP es para sacar la diferencia de fechas entre la fecha en '' con la fecha actual
+
+SELECT order_line, order_date, ship_date, AGE(ship_date, order_date) AS tiempo
+FROM sales
+ORDER BY tiempo DESC;
+
+
+/* ######################################## */
+/* ######################################## */
+/* ######################################## */
+-- EXTRACT
+
+
+SELECT EXTRACT(day FROM TIMESTAMP '2014-04-25');
+
+SELECT EXTRACT(day FROM TIMESTAMP '2014-04-25 08:44:21');
+
+SELECT EXTRACT(minute FROM TIMESTAMP '2014-04-25 08:44:21');
+
+SELECT order_line, ship_date, order_date, EXTRACT(epoch FROM AGE(ship_date, order_Date))
+FROM sales;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
