@@ -38,7 +38,7 @@ Note que se agregan los VALUES como si fueran vectores*/
 /*Importar tablas*/
 					/*A donde quiero añadir los renglones*/
 COPY tabla_clientes(Id_cliente, Nombre, Apellido, Edad, correo) 
-FROM 'C:\Users\Carlos Campos\Desktop\SciData\SQL\data\copy.csv'
+FROM 'C:\Users\Carlos Daniel\Desktop\GitHub\Curso-AABD_SQL\data\copy.csv'
 DELIMITER ',' CSV HEADER;
 
 /*Abrimos el archivo y vimos que los datos estaban delimitados por "," pero también
@@ -51,15 +51,13 @@ computadora, para esto abirmos un "Explorador de archivos" y en la ruta ponemos:
 									C:\Users
 En "Acceso público" es donde nos va a permitir leer los documentos*/
 
-
 COPY tabla_clientes(Id_cliente, Nombre, Apellido, Edad, correo) 
-FROM 'C:\Users\Public\Documents\aabd_sql2021\copy.csv'
+FROM 'C:\Users\Public\Documents\aabd_sql_2021\copy.csv'
 DELIMITER ',' CSV HEADER;
 /* Esta ya es la forma correcta de leer el arhcivo CSV*/
 
-
 COPY tabla_clientes(Id_cliente, Nombre, Apellido, Edad, correo)
-FROM 'C:\Users\Public\Documents\aabd_sql2021\copytext.txt'
+FROM 'C:\Users\Public\Documents\aabd_sql_2021\copytext.txt'
 DELIMITER ',' ;
 SELECT * FROM tabla_clientes;
 /* Leemos el archivo .txt*/
