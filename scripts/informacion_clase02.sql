@@ -90,8 +90,9 @@ SELECT DISTINCT Nombre FROM tabla_clientes;
 SELECT DISTINCT Nombre,Edad FROM tabla_clientes;
 
 COPY tabla_clientes(Id_cliente, Nombre, Apellido, Edad, correo) 
-FROM 'C:\Users\Public\Documents\aabd_sql2021\copy.csv'
+FROM 'C:\Users\Public\Documents\aabd_sql_2021\copy.csv'
 DELIMITER ',' CSV HEADER;
+
 SELECT * FROM tabla_clientes;
 /*Aqui nada mas hemos agregado nuevamente los valores que aparecen en el archivo .csv, es decir,
 los hemos repetido y ahora tenemos 10 registros donde el 9 y 10 son copia del 5 y 6 respectivamente*/
@@ -128,7 +129,7 @@ SELECT nombre, apellido, edad FROM tabla_clientes WHERE (edad <=25 OR edad >30) 
 SELECT nombre, apellido, edad FROM tabla_clientes WHERE (edad<=25)OR(edad<30 AND nombre='Gabriela');
 
 SELECT nombre,apellido, edad FROM tabla_clientes WHERE NOT(edad=25);
-/*Con esto tomamos aquellos que NO tienen edad=25, también se puede hacer con !=*/
+/*Con esto tomamos aquellos que NO tienen edad=25, también se puede hacer con != */
 SELECT nombre,apellido, edad FROM tabla_clientes WHERE edad!=25;
 
 
