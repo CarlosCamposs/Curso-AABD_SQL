@@ -10,8 +10,10 @@ CREATE TABLE customer(
 	Postal_Code int,
 	Region varchar);
 	
+SELECT * FROM customer;
+
 /*Importamos los datos*/
-COPY customer FROM 'C:\Users\Public\Documents\aabd_sql2021\Customer.csv' DELIMITER ',' CSV HEADER;
+COPY customer FROM 'C:\Users\Public\Documents\aabd_sql_2021\Customer.csv' DELIMITER ',' CSV HEADER;
 SELECT * FROM customer;
 
 /* ####################################################*/
@@ -33,7 +35,7 @@ SELECT DISTINCT city FROM customer WHERE city IN ('Philadelphia', 'Seattle');
 SELECT * FROM customer WHERE city IN ('Philadelphia', 'Seattle') AND segment IN ('Corporate');
 
 /*Comprobación que solo me agarra segment=corporate*/
-SELECT DISTINCT segment FROM customer WHERE city IN ('Philadelphia', 'Seattle') AND segment IN ('Corporate');
+SELECT * FROM customer WHERE city IN ('Philadelphia', 'Seattle') AND segment='Corporate';
 
 
 /* ####################################################*/
@@ -54,6 +56,8 @@ SELECT * FROM customer WHERE (age NOT BETWEEN 20 AND 30) AND city IN ('Philadelp
 /* ####################################################*/
 /* ####################################################*/
 /* ####################################################*/
+/* LIKE */
+
 
 SELECT * FROM customer WHERE customer_name LIKE 'J%';
 

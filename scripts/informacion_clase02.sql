@@ -210,6 +210,7 @@ SELECT * FROM tabla_clientes;
 ALTER TABLE tabla_clientes DROP COLUMN prueba;
 SELECT * FROM tabla_clientes;
 
+/* Estas dos sentencias lanzan un problema "el plan almacenado no debe cambiar el tipo de resultado"*/
 ALTER TABLE tabla_clientes ALTER COLUMN Edad TYPE varchar;
 SELECT * FROM tabla_clientes;
 
