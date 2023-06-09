@@ -101,8 +101,8 @@ CREATE TABLE product(product_id varchar PRIMARY KEY,
 					 sub_category varchar,
 					 product_name varchar);
 
-COPY sales FROM 'C:\Users\Public\Documents\aabd_sql2021\Sales.csv' DELIMITER ',' CSV HEADER;
-COPY product FROM 'C:\Users\Public\Documents\aabd_sql2021\Product.csv' DELIMITER ',' CSV HEADER;
+COPY sales FROM 'C:\Users\Public\Documents\aabd_sql_2021\Sales.csv' DELIMITER ',' CSV HEADER;
+COPY product FROM 'C:\Users\Public\Documents\aabd_sql_2021\Product.csv' DELIMITER ',' CSV HEADER;
 
 SELECT * FROM sales;
 SELECT * FROM product;
@@ -148,7 +148,7 @@ Estos outputs que resultan del SELECT se llaman "query" */
 SELECT customer_id AS "Num de cliente", customer_name AS nombre, age AS "Edad_cliente" 
 /*Todo esto es una query, le podemos poner todo lo que ya sabemos hacer*/
 FROM customer
-ORDER BY nombre;
+ORDER BY nombre; /*Es el nuevo nombre de la columna*/
 
 
 /* ####################################################*/
