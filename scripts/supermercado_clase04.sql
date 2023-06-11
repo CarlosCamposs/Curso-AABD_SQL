@@ -307,6 +307,14 @@ pues ahora también nos muestra todas las demás columnas)
 IMPORTANTE
 todo eso es una query, no es ninguna modificación a la tabla original*/
 
+SELECT *,
+CASE
+	WHEN age < 30 THEN 'Joven'
+	WHEN age > 60 THEN 'Mayor'
+	ELSE 'Medio'
+END AS categoria_de_edad 
+FROM customer;
+
 -- Así también se puede poner comentarios
 
 --Para crear tablas se usa la siguiente sintaxis
