@@ -133,6 +133,7 @@ SELECT * FROM customer;
 SELECT state, STRING_AGG(city, ', ') 
 FROM customer
 GROUP BY state;
+
 -- Hay que quitar los valores repetidos, por eso de pone el DISTINCT
 SELECT state, STRING_AGG(DISTINCT city, ', ') 
 FROM customer
@@ -246,20 +247,3 @@ SELECT EXTRACT(minute FROM TIMESTAMP '2014-04-25 08:44:21');
 
 SELECT order_line, ship_date, order_date, EXTRACT(epoch FROM AGE(ship_date, order_Date))
 FROM sales;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
