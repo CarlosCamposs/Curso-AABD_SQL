@@ -139,4 +139,10 @@ SELECT * FROM sales;
 SELECT * FROM customer;
 
 
+SELECT customer_id FROM customer
+EXCEPT
+SELECT customer_id FROM sales
+			-- Para identificar que registros estan en "customer" pero no en "sales"
 
+
+-- Me quede en la 38
