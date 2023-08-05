@@ -72,8 +72,71 @@ GROUP BY region, state
 ORDER BY region ASC;
 
 
--- Me quede en la diapositiva 22
+SELECT * FROM customer;
 
+SELECT region, COUNT(customer_id)
+FROM customer 
+WHERE state LIKE 'A%'
+GROUP BY region
+HAVING COUNT(customer_id) BETWEEN 10 AND 20;
+
+SELECT age,
+CASE 
+	WHEN age<18 THEN 'Menor de edad'
+	WHEN age >=18 AND age <64 THEN 'Adulto'
+	ELSE 'Tercera edad'
+END AS "Categoria edad"
+FROM customer;
+
+
+ALTER TABLE customer
+ADD COLUMN probabilidad FLOAT(3)-- Creamos una nueva columna
+
+UPDATE customer
+SET probabilidad=(
+CASE
+	WHEN age<18 THEN 1
+	WHEN age>=18 AND age <65 THEN  0.5
+	ELSE 0
+END); -- Con UPDATE establecemos que valores iran en la nueva columna
+
+ALTER TABLE customer
+DROP COLUMN probabilidad;
+
+SELECT * FROM customer;
+
+UPDATE customer
+SET probabilidad= age/18;
+
+
+SELECT * FROM customer;
+SELECT * FROM sales;
+
+SELECT 
+a.customer_name,
+a.state,
+b.sales,
+b.profit
+FROM customer as a
+INNER JOIN sales as b
+ON a.customer_id = b.customer_id;
+
+SELECT 
+a.state,
+SUM(b.profit) AS "Suma profit"
+FROM customer AS a
+INNER JOIN sales AS b
+ON a.customer_id = b.customer_id
+GROUP BY a.state;
+
+
+SELECT *
+FROM customer as a
+FULL JOIN sales as b
+ON a.customer_id = b.customer_id;
+
+SELECT * FROM sales;
+SELECT * FROM customer;
 
 
 
