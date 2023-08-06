@@ -135,14 +135,84 @@ FROM customer as a
 FULL JOIN sales as b
 ON a.customer_id = b.customer_id;
 
-SELECT * FROM sales;
-SELECT * FROM customer;
-
-
 SELECT customer_id FROM customer
 EXCEPT
 SELECT customer_id FROM sales
 			-- Para identificar que registros estan en "customer" pero no en "sales"
 
+SELECT * FROM sales;
+SELECT * FROM customer;
 
--- Me quede en la 38
+SELECT customer_id, ship_mode  
+FROM sales
+WHERE customer_id IN ( -- On my first try, I'd written "=" instead of "IN"
+ 	SELECT customer_id 
+	FROM customer
+	WHERE age=18);
+
+SELECT * FROM product;
+
+SELECT
+a.product_id,
+a.product_name,
+a.category,
+b.cantidad
+FROM product AS a
+INNER JOIN
+(SELECT product_id, SUM(quantity) AS cantidad
+FROM sales
+GROUP BY product_id)AS b
+ON a.product_id=b.product_id;
+
+
+SELECT
+	customer_id,
+	order_id,
+	(	SELECT customer_name FROM customer
+		WHERE sales.customer_id = customer.customer_id)
+FROM sales
+ORDER BY customer_id DESC;
+			-- La subconsulta no sirve por si sola, se tiene que ejecutar toda la query para que no lanze error
+
+SELECT * FROM logistica
+
+
+SELECT UPPER('wtw'), LOWER('WTW'), LENGTH('WTW');
+
+SELECT REPLACE('SRM','S','F') -- A big challenge
+
+SELECT TRIM(LEADING 'A' FROM 'AAASoy Carlos');
+SELECT TRIM(TRAILING 'ZZZ' FROM 'Soy CarlosZZZ');
+
+SELECT LTRIM('AAASoy Carlos','A');
+SELECT RTRIM('Soy CarlosZZZ', 'Z'); -- Same as REPLACE, we first put the text that we want to change
+
+
+SELECT  DISTINCT(a.customer_name) || ' tiene ' || a.age ||' años y su ID es: '	|| b.customer_id
+FROM customer AS a
+INNER JOIN sales AS b
+ON a.customer_id=b.customer_id;
+
+SELECT * FROM product;
+SELECT * FROM customer;
+SELECT * FROM sales;
+
+
+SELECT product_id, category, 
+UPPER(SUBSTRING(category FOR 3)) AS code1,
+UPPER( SUBSTRING(sub_category FOR 2))AS code2
+FROM product
+ORDER BY code1 DESC;
+
+SELECT state, STRING_AGG(customer_id,', ')
+FROM customer
+GROUP BY state;
+
+SELECT sales, discount,profit, 
+TO_CHAR(sales, '$9999.99')
+FROM sales;
+			-- We could delete the blank spaces with TRIM(LEADING ___)
+
+
+
+
