@@ -213,6 +213,37 @@ TO_CHAR(sales, '$9999.99')
 FROM sales;
 			-- We could delete the blank spaces with TRIM(LEADING ___)
 
+SELECT * FROM customer;
+
+CREATE TABLE customer_18_30 AS
+SELECT customer_id, customer_name, segment, age 
+FROM customer
+WHERE age>=18 AND age<=30;
+
+SELECT * FROM customer_18_30;
 
 
+SELECT sales, quantity,
+CASE 
+	WHEN quantity>1 THEN sales/quantity
+	ELSE quantity/sales
+END AS "Cuentas"
+FROM sales;
 
+-- 
+SELECT * FROM customer;
+
+SELECT CONCAT(customer_id, ' ', customer_name) FROM customer; -- CONCAT
+
+SELECT '09/02/1970';
+SELECT CAST('09/02/1970' AS DATE);
+SELECT CAST(CAST('06/08/2023'AS DATE)  - CAST('11/03/2023'AS DATE) AS INT);
+
+SELECT * FROM sales 
+WHERE sales<ALL(
+	SELECT sales FROM sales
+	WHERE quantity>5); -- Estamos diciendo que las "sales" deben ser menor que CUALQUIERA (ALL)		
+					   -- que aparece en el segundo SELECT, entonces toma el minimo
+
+
+	
